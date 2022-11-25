@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Yajulu/PlayerData")]
 public class PlayerData : ScriptableObject
 {
-    public float speed = 10;
+    public float forwardSpeed = 5;
+    public float horizontalSpeed = 5;
     public float health = 100;
 }
