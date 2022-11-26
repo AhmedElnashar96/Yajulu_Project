@@ -50,12 +50,8 @@ public class GameManager : MonoBehaviour
 
         if (!isLeft)
         {
-
             isLeft = true;
-
-            plate.position = new Vector3(thePlayer.position.x, plate.position.y, plate.position.z);
-            StartCoroutine(DelayBeforeRotation(false));
-            //plate.RotateAround(thePlayer.position, transform.forward, 180);
+            StartCoroutine(DelayBeforeRotation());
         }
        
     }
@@ -71,10 +67,7 @@ public class GameManager : MonoBehaviour
         if (isLeft)
         {
             isLeft = false;
-
-            plate.position = new Vector3(thePlayer.position.x, plate.position.y, plate.position.z);
-            StartCoroutine(DelayBeforeRotation(true));
-            //plate.RotateAround(thePlayer.position, transform.forward, -180);
+            StartCoroutine(DelayBeforeRotation());
         }
     }
 
@@ -84,20 +77,24 @@ public class GameManager : MonoBehaviour
         isGameOn = false;
     }
 
-    IEnumerator DelayBeforeRotation(bool isNegative)
+    IEnumerator DelayBeforeRotation()
     {
-        for (int i = 1; i <= 30; i++)
+        plate.DOMoveX(thePlayer.position.x, 0f);
+
+        for (int i = 1; i <= 180; i++)
         {
-            if (isNegative)
+            if (isLeft)
             {
-                plate.RotateAround(thePlayer.position, transform.forward, -6);
+                plate.RotateAround(thePlayer.position, transform.forward, 1);
             }
             else
             {
-                plate.RotateAround(thePlayer.position, transform.forward, 6);
+                plate.RotateAround(thePlayer.position, transform.forward, -1);
             }
 
             yield return new WaitForEndOfFrame();
         }
+
+        plate.DOMoveX(thePlayer.position.x, 0.2f);
     }
 }

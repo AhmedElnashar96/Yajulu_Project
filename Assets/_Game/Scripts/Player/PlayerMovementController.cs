@@ -8,7 +8,7 @@ public class PlayerMovementController : MonoBehaviour
     #region Variables
 
     #region Exposed
-    public bool isFalling = false;
+    [HideInInspector] public bool isFalling = false;
     #endregion
 
     #region Hidden
@@ -51,7 +51,7 @@ public class PlayerMovementController : MonoBehaviour
             MovePlayer();
         }
 
-        if (theRigidbody.velocity.y < -30f)
+        if (theRigidbody.velocity.y < -50f)
         {
             isFalling = true;
             healthController.DamageThePlayer(0.1f);

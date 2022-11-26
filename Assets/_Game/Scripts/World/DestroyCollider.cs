@@ -11,7 +11,6 @@ public class DestroyCollider : MonoBehaviour
         if (other.CompareTag(wantedTag))
         {
             Destroy(other.gameObject);
-            print("Destroyed");
         }
     }
 }
