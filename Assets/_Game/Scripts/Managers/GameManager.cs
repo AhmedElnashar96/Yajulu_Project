@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform thePlayer;
     private GameControls controls;
     private bool isLeft = false;
+    private bool shouldRotate = false;
+    private float rotAngle = 0;
     #endregion
 
     #endregion
@@ -40,12 +43,19 @@ public class GameManager : MonoBehaviour
     /// Rotate the world to the left
     public void RotateWorldLeft()
     {
+        if (!isGameOn)
+        {
+            return;
+        }
+
         if (!isLeft)
         {
+
             isLeft = true;
 
             plate.position = new Vector3(thePlayer.position.x, plate.position.y, plate.position.z);
-            plate.RotateAround(thePlayer.position, transform.forward, 180);
+            StartCoroutine(DelayBeforeRotation(false));
+            //plate.RotateAround(thePlayer.position, transform.forward, 180);
         }
        
     }
@@ -53,12 +63,18 @@ public class GameManager : MonoBehaviour
     /// Rotate the world to the right
     public void RotateWorldRight()
     {
+        if (!isGameOn)
+        {
+            return;
+        }
+
         if (isLeft)
         {
             isLeft = false;
 
             plate.position = new Vector3(thePlayer.position.x, plate.position.y, plate.position.z);
-            plate.RotateAround(thePlayer.position, transform.forward, -180);
+            StartCoroutine(DelayBeforeRotation(true));
+            //plate.RotateAround(thePlayer.position, transform.forward, -180);
         }
     }
 
@@ -66,5 +82,22 @@ public class GameManager : MonoBehaviour
     public void TurnGameOff()
     {
         isGameOn = false;
+    }
+
+    IEnumerator DelayBeforeRotation(bool isNegative)
+    {
+        for (int i = 1; i <= 30; i++)
+        {
+            if (isNegative)
+            {
+                plate.RotateAround(thePlayer.position, transform.forward, -6);
+            }
+            else
+            {
+                plate.RotateAround(thePlayer.position, transform.forward, 6);
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 }

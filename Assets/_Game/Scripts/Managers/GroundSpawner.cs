@@ -24,17 +24,17 @@ public class GroundSpawner : Singleton<GroundSpawner>
 
     /// Spawn new tile at last tile's end position
     /// Destroy Old tiles
-    public void SpawnNewGroundtiles(Vector3 thisPos)
+    public void SpawnNewGroundtiles(Transform nextSpawnTransformPoint)
     {
-        SpawnTransform(thisPos);
+        SpawnTransform(nextSpawnTransformPoint);
     }
 
 
     /// Spawn groundtile prefab at this position
-    private Transform SpawnTransform(Vector3 pos)
+    private Transform SpawnTransform(Transform nextSpawnTransformPoint)
     {
         int selectedNum = PickRandomNumber();
-        Transform newTile = Instantiate(groundtilePrefabs[selectedNum], pos, Quaternion.identity, tilesParent);
+        Transform newTile = Instantiate(groundtilePrefabs[selectedNum], nextSpawnTransformPoint.position, nextSpawnTransformPoint.rotation, tilesParent);
         return newTile;
     }
 

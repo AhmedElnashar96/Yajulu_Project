@@ -14,7 +14,7 @@ public class SpawnNextTile : MonoBehaviour
             if (!debuff)
             {
                 debuff = true;
-                GroundSpawner.Instance.SpawnNewGroundtiles(nextSpawnPoint.position);
+                GroundSpawner.Instance.SpawnNewGroundtiles(nextSpawnPoint);
             }
         }
     }
