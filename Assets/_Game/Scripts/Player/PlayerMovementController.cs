@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     #region Variables
 
     #region Exposed
+    public bool isFalling = false;
     #endregion
 
     #region Hidden
     [SerializeField] private PlayerData playerData;
-    [SerializeField] private CharacterController characterController;
+
+    [Space(15)]
+    [Header("Settings")]
     [SerializeField] private AnimationsManager animationsManager;
+    [SerializeField] private Rigidbody theRigidbody;
+    [SerializeField] private PlayerHealthController healthController;
 
     private float horizontalInput;
     private float forwardSpeed;
     private float horizontalSpeed;
-    private bool isFalling = false;
+    private float FallingThreshold = -7f;  
+    
     #endregion
 
     #endregion
@@ -29,58 +35,60 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        MovePlayer();
+        if (!GameManager.isGameOn)
+        {
+            return;
+        }
+
+        if (theRigidbody.velocity.y < FallingThreshold)
+        {
+            isFalling = true;
+            animationsManager.ChangeAnimationState(Constants.FALL_ANIMATION);
+        }
+        else
+        {
+            isFalling = false;
+            MovePlayer();
+        }
+
+        if (theRigidbody.velocity.y < -30f)
+        {
+            isFalling = true;
+            healthController.DamageThePlayer(0.1f);
+        }
+
     }
 
-    /// <summary>
+
     /// Intialize player's values
-    /// </summary>
     private void IntializePlayer()
     {
         forwardSpeed = playerData.forwardSpeed;
         horizontalSpeed = playerData.horizontalSpeed;
     }
 
-
-    /// <summary>
-    /// Move Player Horizontally
-    /// </summary>
+    /// Move Player Horizontally And Play Movement Animation
     private void MovePlayer()
     {
-        //Move Forward
-        characterController.Move(transform.forward * horizontalSpeed * Time.deltaTime);
-
-        //Move Horizontal
-        Vector3 movement = transform.right * horizontalInput;
-        characterController.SimpleMove(movement * horizontalSpeed);
-
-        //Play Animation
+        theRigidbody.velocity = new Vector3(horizontalInput * horizontalSpeed, theRigidbody.velocity.y, forwardSpeed);
         PlayMovementAnimation();
     }
 
-
-    /// <summary>
     /// Update Horizontal Value with the value taken from input system
-    /// </summary>
     public void onMove(InputAction.CallbackContext context)
     {
         horizontalInput = context.ReadValue<Vector2>().x;
     }
 
-
-    /// <summary>
     /// Play Animation based on player current state
-    /// </summary>
     private void PlayMovementAnimation()
     {
-        if (isFalling)
+        if (healthController.isHurt)
         {
-            animationsManager.ChangeAnimationState(Constants.FALL_ANIMATION);
+            return;
         }
-        else
-        {
-            animationsManager.ChangeAnimationState(Constants.IDLE_ANIMATION);
-        }
+
+        animationsManager.ChangeAnimationState(Constants.IDLE_ANIMATION);
     }
 
 }

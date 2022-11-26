@@ -29,4 +29,23 @@ public class AnimationsManager : MonoBehaviour
         animator.Play(newAnimation);
         currentAnimation = newAnimation;
     }
+
+
+    ///  Get the length of this animation
+    public float GetAnimationLength(string _animName)
+    {
+        RuntimeAnimatorController animatiorController = animator.runtimeAnimatorController;
+        float animLength = 0;
+
+        for (int i = 0; i < animatiorController.animationClips.Length; i++)                 // For all animations
+        {
+            if (animatiorController.animationClips[i].name == _animName)        // If it has the same name as wanted clip
+            {
+                animLength = animatiorController.animationClips[i].length;
+            }
+        }
+
+        return animLength;
+    }
+
 }

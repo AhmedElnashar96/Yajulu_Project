@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0027bccb00dedc24abb4c9e6c370ee30, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 690ec670972a9a14bbd1091ffffe0d33, type: 3}
+  m_Name: PlayerDeathEvent
   m_EditorClassIdentifier: 
-  speed: 5
-  health: 100

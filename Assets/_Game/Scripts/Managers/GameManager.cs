@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     #region Variables
 
     #region Exposed
+    public static bool isGameOn;
     #endregion
 
     #region Hidden
@@ -19,6 +20,14 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    private void OnEnable()
+    {
+        controls.Game.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.Game.Disable();
+    }
     private void Awake()
     {
         controls = new GameControls();
@@ -26,6 +35,9 @@ public class GameManager : MonoBehaviour
         controls.Game.RotateWorldLeft.performed += context => RotateWorldLeft();
         controls.Game.RotateWorldRight.performed += context => RotateWorldRight();
     }
+
+
+    /// Rotate the world to the left
     public void RotateWorldLeft()
     {
         if (!isLeft)
@@ -37,6 +49,8 @@ public class GameManager : MonoBehaviour
         }
        
     }
+
+    /// Rotate the world to the right
     public void RotateWorldRight()
     {
         if (isLeft)
@@ -48,13 +62,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    /// Event listener to turn game off when player dies
+    public void TurnGameOff()
     {
-        controls.Game.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Game.Disable();
+        isGameOn = false;
     }
 }

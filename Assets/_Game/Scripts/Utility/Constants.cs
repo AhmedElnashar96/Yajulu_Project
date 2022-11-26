@@ -10,4 +10,6 @@ public class Constants
     public const string FALL_ANIMATION = "Falling";
     public const string HURT_ANIMATION = "Hurt";
     #endregion
+
+    public const string GAME_SCENE_NAME = "GameScene";
 }
