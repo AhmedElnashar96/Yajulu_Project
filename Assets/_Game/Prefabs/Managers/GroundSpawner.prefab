@@ -46,5 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundtilePrefabs:
   - {fileID: 3673222580707402440, guid: c7bf6af2281e21f4a8ca21c7c74251e7, type: 3}
-  playerPrefab: {fileID: 0}
-  levelObjects: {fileID: 0}
+  - {fileID: 323622560423259558, guid: b4bc4c5e54efe494aa4ccbf6d3be15f7, type: 3}
+  - {fileID: 323622560423259558, guid: 8b8d7db8281bd034ebdc0c80cf7038d8, type: 3}
+  tilesParent: {fileID: 0}
+  nextSpawnPoint: {x: -4.2199507, y: -1.1458641, z: 125}
+  addedPositionToNextSpawn: {x: 0, y: 0, z: 15}

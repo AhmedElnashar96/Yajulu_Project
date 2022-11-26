@@ -14,14 +14,24 @@ public class StartMenu : MonoBehaviour
 
     #region Hidden
     [SerializeField] private Button startButton;
+    [SerializeField] private Button exitButton;
     #endregion
 
     #endregion
 
-
+    private void Start()
+    {
+        exitButton.onClick.AddListener(() => ExitGame());
+    }
     public void SetupMenu(Action buttonFunction)
     {
         startButton.onClick.AddListener(() => buttonFunction());
+
         startButton.transform.DOScale(new Vector3(1,1,1), 1);
+        exitButton.transform.DOScale(new Vector3(1,1,1), 1);
+    }
+    private void ExitGame()
+    {
+        Application.Quit();
     }
 }

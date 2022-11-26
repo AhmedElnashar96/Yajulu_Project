@@ -21,7 +21,6 @@ public class DamagePlayer : MonoBehaviour
             }
         }
     }
-
     private void OnEnable()
     {
         debuff = false;

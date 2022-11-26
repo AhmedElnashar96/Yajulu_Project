@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundSpawner : MonoBehaviour
+public class GroundSpawner : Singleton<GroundSpawner>
 {
     #region Variables
 
@@ -15,35 +15,20 @@ public class GroundSpawner : MonoBehaviour
 
 
     private List<Transform> tiles = new();
-
     private int lastUsedNum = 0;
-    private Vector3 nextPosition;
-    #endregion
 
     #endregion
 
-
-    private void Start()
-    {
-        SpawnNewGroundtiles(transform.position);
-    }
+    #endregion
 
 
-
-    /// Spawn 5 new tiles at each tile rea's end position
+    /// Spawn new tile at last tile's end position
     /// Destroy Old tiles
-    public void SpawnNewGroundtiles(Vector2 thisPos)
+    public void SpawnNewGroundtiles(Vector3 thisPos)
     {
-        print(transform.position);
-        Transform newScreen = SpawnTransform(thisPos);
-
-        for (int i = 1; i < 5; i++)
-        {
-            Transform newTile = SpawnTransform(nextPosition);
-            nextPosition = newTile.position + new Vector3(0, 0, 23.9f);
-        }
-       
+        SpawnTransform(thisPos);
     }
+
 
     /// Spawn groundtile prefab at this position
     private Transform SpawnTransform(Vector3 pos)

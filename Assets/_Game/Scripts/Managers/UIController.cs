@@ -29,6 +29,7 @@ public class UIController : MonoBehaviour
 
     private int scoreAmount = 0;
     private Transform instantiatedStartMenu;
+    private Transform instantiatedGameoverMenu;
     #endregion
 
     #endregion
@@ -51,8 +52,11 @@ public class UIController : MonoBehaviour
     {
         gameUI.SetActive(false);
 
-        instantiatedStartMenu =  Instantiate(startMenuPrefab, canvas);
-        instantiatedStartMenu.GetComponent<StartMenu>().SetupMenu(ShowGameUI);
+        if (instantiatedStartMenu == null)
+        {
+            instantiatedStartMenu = Instantiate(startMenuPrefab, canvas);
+            instantiatedStartMenu.GetComponent<StartMenu>().SetupMenu(ShowGameUI);
+        }
     }
 
     /// Show Game UI and destroy the start menu
@@ -72,9 +76,13 @@ public class UIController : MonoBehaviour
     {
         gameUI.SetActive(false);
 
-        instantiatedStartMenu = Instantiate(gameoverPrefab, canvas);
-        instantiatedStartMenu.GetComponent<GameoverMenu>().UpdateScore(scoreAmount);
+        if (instantiatedGameoverMenu == null)
+        {
+            instantiatedGameoverMenu = Instantiate(gameoverPrefab, canvas);
+            instantiatedGameoverMenu.GetComponent<GameoverMenu>().UpdateScore(scoreAmount);
+        }
     }
+
 
     #region Event Listeners
     /// Update Distance UI Event Listener

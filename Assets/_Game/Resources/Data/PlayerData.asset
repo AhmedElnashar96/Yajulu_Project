@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0027bccb00dedc24abb4c9e6c370ee30, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  forwardSpeed: 8
+  forwardSpeed: 15
   horizontalSpeed: 5
   health: 90
   distanceToRewardScore: 100

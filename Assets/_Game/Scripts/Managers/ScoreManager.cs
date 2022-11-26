@@ -44,7 +44,7 @@ public class ScoreManager : MonoBehaviour
         }
 
 
-        currentDistance += 0.05f;
+        currentDistance += 0.07f;
         distanceEvent?.Raise((int) currentDistance);
 
 
